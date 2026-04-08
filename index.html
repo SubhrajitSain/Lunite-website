@@ -98,8 +98,10 @@
             try {
                 const response = await fetch('registry.json');
                 appRegistry = await response.json();
-                
+                console.log("Registry loaded:", appRegistry);
+
                 let firstFile = null, firstType = null;
+
                 appRegistry.forEach((section) => {
                     const sectionContainer = document.createElement('div');
                     const header = document.createElement('h3');
@@ -114,13 +116,13 @@
                         if (!firstFile) { firstFile = item.file; firstType = item.type; }
                         const link = document.createElement('a');
                         link.href = `#${item.file}`;
-                        link.className = "nav-link block px-4 py-2.5 rounded-md text-zinc-400 text-sm transition-colors";
+                        link.className = "nav-link block px-4 py-2.5 rounded-md text-zinc-400 text-sm transition-colors cursor-pointer";
                         link.textContent = item.title;
                         link.setAttribute('data-file', item.file);
                         
                         link.onclick = (e) => {
                             e.preventDefault();
-                            window.location.hash = item.file;
+                            window.location.hash = item.file; 
                         };
                         list.appendChild(link);
                     });
@@ -128,16 +130,27 @@
                     nav.appendChild(sectionContainer);
                 });
 
-                const currentHash = window.location.hash.substring(1);
-                handleNavigation(currentHash || firstFile);
+                const initialHash = window.location.hash.substring(1);
+                const target = initialHash || firstFile;
+                const item = findItemInRegistry(target);
+                
+                if (item) {
+                    loadContent(item.file, item.type);
+                    syncSidebarUI(item.file);
+                } else if (firstFile) {
+                    loadContent(firstFile, firstType);
+                    syncSidebarUI(firstFile);
+                }
 
             } catch (error) { console.error("Registry load fail", error); }
         }
 
-        function findItemInRegistry(file) {
-            const decodedFile = decodeURIComponent(file);
+        function findItemInRegistry(filePath) {
+            if (!filePath) return null;
+            const cleanPath = decodeURIComponent(filePath).replace(/^#/, '');
+            
             for (let section of appRegistry) {
-                let found = section.items.find(i => i.file === decodedFile);
+                let found = section.items.find(i => i.file === cleanPath);
                 if (found) return found;
             }
             return null;
@@ -148,7 +161,9 @@
             contentDiv.innerHTML = '<p class="text-zinc-600 animate-pulse">Loading...</p>';
             try {
                 const response = await fetch(file);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const text = await response.text();
+                
                 contentDiv.innerHTML = type === 'md' ? marked.parse(text) : text;
 
                 if (type === 'html') {
@@ -160,18 +175,16 @@
                     });
                 }
                 hljs.highlightAll();
-                document.querySelector('main').scrollTo(0, 0);
-            } catch (e) { contentDiv.innerHTML = "<h1>404 Not Found</h1>"; }
+                document.querySelector('main').scrollTo(0,0);
+            } catch (e) { 
+                console.error("LoadContent Error:", e);
+                contentDiv.innerHTML = `<h1 class="text-red-500">404</h1><p>Failed to load: ${file}</p>`; 
+            }
         }
 
-        function handleNavigation(file) {
-            const item = findItemInRegistry(file);
-            if (!item) return;
-
-            loadContent(item.file, item.type);
-
+        function syncSidebarUI(file) {
             document.querySelectorAll('.nav-link').forEach(a => {
-                const isActive = a.getAttribute('data-file') === item.file;
+                const isActive = a.getAttribute('data-file') === file;
                 a.classList.toggle('bg-lunite', isActive);
                 a.classList.toggle('text-white', isActive);
                 a.classList.toggle('text-zinc-400', !isActive);
@@ -188,14 +201,13 @@
             const link = e.target.closest('a');
             if (!link) return;
 
-            const href = link.getAttribute('href');
-            if (!href) return;
-
+            const href = link.getAttribute('href') || "";
+            
             if (href.includes('#')) {
-                const parts = href.split('#');
-                const targetFile = parts[1];
+                const targetFile = href.split('#')[1];
+                const item = findItemInRegistry(targetFile);
                 
-                if (findItemInRegistry(targetFile)) {
+                if (item) {
                     e.preventDefault();
                     window.location.hash = targetFile;
                 }
@@ -204,7 +216,15 @@
 
         window.addEventListener('hashchange', () => {
             const newHash = window.location.hash.substring(1);
-            if (newHash) handleNavigation(newHash);
+            console.log("Navigating to hash:", newHash);
+            
+            const item = findItemInRegistry(newHash);
+            if (item) {
+                loadContent(item.file, item.type);
+                syncSidebarUI(item.file);
+            } else {
+                console.warn("Path not found in registry:", newHash);
+            }
         });
 
         loadApp();
