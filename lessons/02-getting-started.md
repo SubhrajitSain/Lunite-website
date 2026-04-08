@@ -63,7 +63,7 @@ These functions can be accessed globally throughout your programs. Totally not c
 - `raise(msg)`: Raises a runtime exception with the given message.
 - **Casts:** `str(x)`, `int(x)`, `float(x)`, `bool(x)`, `bit(x)`, `byte(x)`, `char(x)`, `bytes(list)`.  
 
-<br>  
+That should be all to get you started.
 
 ---
 
