@@ -72,31 +72,6 @@
     <script>
         let appRegistry = [];
 
-        marked.setOptions({
-            highlight: function(code, lang) {
-                const language = (lang === 'luna' || lang === 'lunite') ? 'lunite' : lang;
-                if (language && hljs.getLanguage(language)) {
-                    return hljs.highlight(code, { language: language }).value;
-                }
-                return hljs.highlightAuto(code).value;
-            }
-        });
-
-        const menuBtn = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        function toggleSidebar() {
-            const isOpen = sidebar.classList.contains('translate-x-0');
-            sidebar.classList.toggle('-translate-x-full', isOpen);
-            sidebar.classList.toggle('translate-x-0', !isOpen);
-            overlay.classList.toggle('hidden', isOpen);
-        }
-
-        menuBtn.onclick = toggleSidebar;
-        overlay.onclick = toggleSidebar;
-
-        // syntax highlighting rules for lunite
         hljs.registerLanguage('lunite', (hljs) => {
             const KEYWORDS = {
                 keyword: 'if else while for in return break advance leap attempt rescue finally match other import import_py from assert async await macro let const func public private global class enum extends new',
@@ -126,12 +101,6 @@
                 variants: [
                     { begin: /~~/, end: /$/ },
                     { begin: /~\*/, end: /\*~/ }
-                ],
-                contains: [
-                    {
-                        className: 'doctag',
-                        begin: /@\w+/
-                    }
                 ]
             };
 
@@ -172,13 +141,39 @@
             };
         });
 
+        const renderer = new marked.Renderer();
+        renderer.code = function(code, lang) {
+            const language = (lang === 'luna' || lang === 'lunite') ? 'lunite' : lang;
+            if (language && hljs.getLanguage(language)) {
+                try {
+                    const highlighted = hljs.highlight(code, { language: language }).value;
+                    return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`;
+                } catch (err) { console.error(err); }
+            }
+            return `<pre><code class="hljs">${code}</code></pre>`;
+        };
+        marked.setOptions({ renderer: renderer });
+
+        const menuBtn = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleSidebar() {
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            sidebar.classList.toggle('-translate-x-full', isOpen);
+            sidebar.classList.toggle('translate-x-0', !isOpen);
+            overlay.classList.toggle('hidden', isOpen);
+        }
+
+        menuBtn.onclick = toggleSidebar;
+        overlay.onclick = toggleSidebar;
+
         async function loadApp() {
             const nav = document.getElementById('sidebar-nav');
             try {
                 const response = await fetch('registry.json');
                 appRegistry = await response.json();
-                console.log("Registry loaded:", appRegistry);
-
+                
                 let firstFile = null, firstType = null;
 
                 appRegistry.forEach((section) => {
@@ -209,25 +204,19 @@
                     nav.appendChild(sectionContainer);
                 });
 
-                const initialHash = window.location.hash.substring(1);
-                const target = initialHash || firstFile;
+                const target = window.location.hash.substring(1) || firstFile;
                 const item = findItemInRegistry(target);
                 
                 if (item) {
                     loadContent(item.file, item.type);
                     syncSidebarUI(item.file);
-                } else if (firstFile) {
-                    loadContent(firstFile, firstType);
-                    syncSidebarUI(firstFile);
                 }
-
             } catch (error) { console.error("Registry load fail", error); }
         }
 
         function findItemInRegistry(filePath) {
             if (!filePath) return null;
             const cleanPath = decodeURIComponent(filePath).replace(/^#/, '');
-            
             for (let section of appRegistry) {
                 let found = section.items.find(i => i.file === cleanPath);
                 if (found) return found;
@@ -256,7 +245,6 @@
                 hljs.highlightAll();
                 document.querySelector('main').scrollTo(0,0);
             } catch (e) { 
-                console.error("LoadContent Error:", e);
                 contentDiv.innerHTML = `<h1 class="text-red-500">404</h1><p>Failed to load: ${file}</p>`; 
             }
         }
@@ -268,10 +256,8 @@
                 a.classList.toggle('text-white', isActive);
                 a.classList.toggle('text-zinc-400', !isActive);
             });
-
             if (window.innerWidth < 1024) {
                 sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('translate-x-0');
                 overlay.classList.add('hidden');
             }
         }
@@ -279,13 +265,10 @@
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
-
             const href = link.getAttribute('href') || "";
-            
-            if (href.includes('#')) {
-                const targetFile = href.split('#')[1];
+            if (href.startsWith('#')) {
+                const targetFile = href.substring(1);
                 const item = findItemInRegistry(targetFile);
-                
                 if (item) {
                     e.preventDefault();
                     window.location.hash = targetFile;
@@ -294,15 +277,10 @@
         });
 
         window.addEventListener('hashchange', () => {
-            const newHash = window.location.hash.substring(1);
-            console.log("Navigating to hash:", newHash);
-            
-            const item = findItemInRegistry(newHash);
+            const item = findItemInRegistry(window.location.hash.substring(1));
             if (item) {
                 loadContent(item.file, item.type);
                 syncSidebarUI(item.file);
-            } else {
-                console.warn("Path not found in registry:", newHash);
             }
         });
 
