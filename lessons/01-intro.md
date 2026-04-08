@@ -15,7 +15,6 @@ Lunite is a hybrid OOP and POP programming language made in Python, used mainly 
 
 This language initially started as a silly little project of mine (Hi, I am ANW!), but now has come to such a state that it can be used to make webservers (using other libraries, ofcourse, like `flask` from PyPI), import Python modules and also export Lunite functions, variables, objects, etc. to Python via `lunamod.py`, a custom made module for importing Lunite modules into Python. Neat, ain't it?
 
-We also reached 20 stars on GitHub, which for me is a big achievement (thank you pookies! :3). Now that the introductory part is over, lets get into the real deal.
+We also reached 20 stars on GitHub, which for me is a big achievement (thank you pookies! :3). Now that the introductory part is over, lets get into the real deal.  
 
-<br>
 <small>Lesson 1 | [Next Lesson](#lessons/02-getting-started.md)</small>
