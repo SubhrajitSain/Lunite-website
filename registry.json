@@ -3,7 +3,8 @@
     "category": "Lessons",
     "items": [
       { "title": "1. Introduction", "file": "lessons/01-intro.md", "type": "md" },
-      { "title": "2. Getting Started", "file": "lessons/02-getting-started.md", "type": "md" }
+      { "title": "2. Getting Started", "file": "lessons/02-getting-started.md", "type": "md" },
+      { "title": "3. Values and Datatypes", "file": "lessons/03-values-and-datatypes.md", "type": "md" }
     ]
   },
   {
