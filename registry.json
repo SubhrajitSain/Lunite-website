@@ -1,0 +1,20 @@
+[
+  {
+    "category": "Lessons",
+    "items": [
+      { "title": "1. Introduction", "file": "lessons/01-intro.md", "type": "md" }
+    ]
+  },
+  {
+    "category": "Exercises",
+    "items": [
+      { "title": "1. Hello, World!", "file": "exercises/01-hello-world.html", "type": "html" }
+    ]
+  },
+  {
+    "category": "DIY Questions",
+    "items": [
+      { "title": "1. Calculator", "file": "diy/01-calc.md", "type": "md" }
+    ]
+  }
+]

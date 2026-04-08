@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Lunite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- these are stable versions -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lunite: '#5201cc',
+                    },
+                    fontFamily: {
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['"Fira Code"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Merriweather', serif; background-color: #000; color: #fff; }
+        code, pre, input, textarea, button { font-family: 'Fira Code', monospace; }
+        .markdown-body h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #5201cc; font-family: 'Merriweather', serif; }
+        .markdown-body h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid #1f1f22; padding-bottom: 0.5rem; font-family: 'Merriweather', serif; }
+        .markdown-body h3 { font-size: 1.25rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; font-family: 'Merriweather', serif; }
+        .markdown-body p { margin-bottom: 1.25rem; line-height: 1.8; color: #d4d4d8; font-family: 'Merriweather', serif; }
+        .markdown-body pre { background-color: #09090b; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.5rem; border: 1px solid #27272a; }
+        .markdown-body code { background-color: #18181b; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875em; border: 1px solid #27272a; }
+        .markdown-body pre code { background-color: transparent; padding: 0; border: none; }
+        .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.25rem; color: #d4d4d8; }
+        .markdown-body a { color: #5201cc; text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body blockquote { border-left: 4px solid #5201cc; padding-left: 1rem; color: #a1a1aa; font-style: italic; margin-bottom: 1.25rem; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased selection:bg-lunite selection:text-white">
+    <aside class="w-72 bg-[#050505] border-r border-zinc-900 flex flex-col">
+        <div class="p-6 border-b border-zinc-900 flex items-center gap-4">
+            <img src="https://raw.githubusercontent.com/SubhrajitSain/Lunite/refs/heads/main/icon.png" alt="Lunite" class="w-9 h-9">
+            <span class="text-2xl font-bold tracking-tight">Lunite</span>
+        </div>
+        <nav id="sidebar-nav" class="flex-1 overflow-y-auto p-4 space-y-6">
+        </nav>
+    </aside>
+    <main class="flex-1 overflow-y-auto p-12 bg-black">
+        <div id="content" class="max-w-3xl mx-auto markdown-body">
+        </div>
+    </main>
+    <script>
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(code, { language: lang }).value;
+                }
+                return hljs.highlightAuto(code).value;
+            }
+        });
+
+        async function loadApp() {
+            const nav = document.getElementById('sidebar-nav');
+            const content = document.getElementById('content');
+
+            try {
+                const response = await fetch('registry.json');
+                const registry = await response.json();
+                let firstFile = null;
+                let firstType = null;
+
+                registry.forEach((section) => {
+                    const sectionContainer = document.createElement('div');
+                    
+                    const header = document.createElement('h3');
+                    header.className = "text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-4 font-serif";
+                    header.textContent = section.category;
+                    sectionContainer.appendChild(header);
+
+                    const list = document.createElement('div');
+                    list.className = "space-y-1";
+
+                    section.items.forEach((item) => {
+                        if (!firstFile) {
+                            firstFile = item.file;
+                            firstType = item.type;
+                        }
+
+                        const link = document.createElement('a');
+                        link.href = `#${item.file}`;
+                        link.className = "nav-link block px-4 py-2.5 rounded-md hover:bg-[#111] hover:text-white transition-colors cursor-pointer text-zinc-400 font-serif text-sm";
+                        link.textContent = item.title;
+                        link.setAttribute('data-file', item.file);
+                        link.setAttribute('data-type', item.type);
+                        
+                        link.onclick = (e) => {
+                            e.preventDefault();
+                            window.location.hash = item.file;
+                            loadContent(item.file, item.type);
+                            updateActiveState(link);
+                        };
+                        list.appendChild(link);
+                    });
+
+                    sectionContainer.appendChild(list);
+                    nav.appendChild(sectionContainer);
+                });
+
+                const hash = window.location.hash ? window.location.hash.substring(1) : firstFile;
+                const activeLink = document.querySelector(`a[data-file="${hash}"]`);
+                const type = activeLink ? activeLink.getAttribute('data-type') : firstType;
+
+                loadContent(hash, type);
+                
+                setTimeout(() => {
+                    if(activeLink) updateActiveState(activeLink);
+                }, 50);
+
+            } catch (error) {
+                content.innerHTML = '<p class="text-red-500 font-serif">Failed to load file registry. Check your console.</p>';
+                console.error(error)
+            }
+        }
+
+        async function loadContent(file, type) {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = '<p class="text-zinc-600 font-serif animate-pulse">Hold momentarily...</p>';
+            
+            try {
+                const response = await fetch(file);
+                if (!response.ok) throw new Error('Not found');
+                const text = await response.text();
+
+                if (type === 'md') {
+                    contentDiv.innerHTML = marked.parse(text); // for lessons/diy
+                } else if (type === 'html') {
+                    // for exercises
+                    contentDiv.innerHTML = text;
+                    const scripts = contentDiv.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<h1 class="text-red-500 font-serif">404</h1><p class="font-serif">Content not found. Check your console.</p>`;
+                console.error(error)
+            }
+        }
+
+        function updateActiveState(activeLink) {
+            if(!activeLink) return;
+            document.querySelectorAll('.nav-link').forEach(a => {
+                a.classList.remove('bg-lunite', 'text-white', 'hover:bg-[#111]');
+                a.classList.add('text-zinc-400');
+            });
+            activeLink.classList.remove('text-zinc-400');
+            activeLink.classList.add('bg-lunite', 'text-white');
+        }
+
+        loadApp();
+    </script>
+</body>
+</html>
