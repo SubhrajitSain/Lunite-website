@@ -106,36 +106,46 @@
                 variable: 'this'
             };
 
-            return {
-                name: 'Lunite',
-                aliases: ['luna'],
-                keywords: KEYWORDS,
-                contains: [
-                    hljs.HASH_COMMENT_MODE, // Standard # comments if you use them
-                    {
-                        className: 'comment',
-                        begin: /~~/, end: /$/
-                    },
-                    {
-                        className: 'comment',
-                        begin: /~\*/, end: /\*~/
-                    },
-                    {
-                        className: 'string',
-                        begin: /f"/, end: /"/,
-                        contains: [
-                            hljs.BACKSLASH_ESCAPE,
-                            {
-                                className: 'subst',
-                                begin: /\{/, end: /\}/
-                            }
-                        ]
-                    },
+            const LUNA_STRING = {
+                className: 'string',
+                variants: [
                     hljs.QUOTE_STRING_MODE,
                     hljs.APOS_STRING_MODE,
                     {
+                        begin: /f"/, end: /"/,
+                        contains: [
+                            hljs.BACKSLASH_ESCAPE,
+                            { className: 'subst', begin: /\{/, end: /\}/ }
+                        ]
+                    }
+                ]
+            };
+
+            const LUNA_COMMENT = {
+                className: 'comment',
+                variants: [
+                    { begin: /~~/, end: /$/ },
+                    { begin: /~\*/, end: /\*~/ }
+                ],
+                contains: [
+                    {
+                        className: 'doctag',
+                        begin: /@\w+/
+                    }
+                ]
+            };
+
+            return {
+                name: 'Lunite',
+                aliases: ['luna', 'lunite'],
+                keywords: KEYWORDS,
+                contains: [
+                    LUNA_COMMENT,
+                    LUNA_STRING,
+                    {
                         className: 'function',
-                        beginKeywords: 'func', end: /\{/, excludeEnd: true,
+                        beginKeywords: 'func', end: /[{;]/, 
+                        excludeEnd: true,
                         contains: [
                             hljs.UNDERSCORE_TITLE_MODE,
                             {
@@ -143,10 +153,8 @@
                                 begin: /\(/, end: /\)/,
                                 keywords: KEYWORDS,
                                 contains: [
-                                    hljs.SELF,
-                                    hljs.QUOTE_STRING_MODE,
-                                    hljs.APOS_STRING_MODE,
-                                    hljs.C_NUMBER_MODE
+                                    hljs.C_NUMBER_MODE,
+                                    LUNA_STRING
                                 ]
                             }
                         ]
@@ -158,7 +166,7 @@
                     hljs.C_NUMBER_MODE,
                     {
                         className: 'operator',
-                        begin: /\+\+|--|<<|>>|==|!=|<=|>=|=>|&&|\|\||\+=|-=|\*=|\/=|%=|\+|-|\*|\/|%|=| \. |<|>|!|&|\||\^|~|\?|:|;/
+                        begin: /[+\-/*%^&|<>!=?~:;.]+/ 
                     }
                 ]
             };
