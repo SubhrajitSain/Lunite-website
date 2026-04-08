@@ -6,7 +6,7 @@
 
 The absolute, ginormous, ultimate question for a language is how to make a Hello World program in it. And, I would kid you not, it is...  
 
-```
+```lunite
 out("Hello, World!")
 ```
 
@@ -16,7 +16,7 @@ Yes. Its that simple (unlike Java for instance).
 
 Now, for the second most ginormous question, does it need semicolons? I think you already have the answer. No. But you can add semicolons at the end of statements and make one-liner programs.  
 
-```
+```lunite
 out("Hi!"); out("How are you?")
 ```
 
@@ -28,13 +28,13 @@ Ah, the most important thing when it comes to annotations. **Comments**. So, how
 
 For single line comments:  
 
-```
+```lunite
 ~~ yo this is cool
 ```
 
 For multiline comments:
 
-```
+```lunite
 ~*
 this is very nice
 i am not kidding
@@ -43,7 +43,7 @@ i am not kidding
 
 ...or style it, like:  
 
-```
+```lunite
 ~*
  * this thing can host websites
  * i am being fr
