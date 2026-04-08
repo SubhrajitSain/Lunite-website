@@ -98,8 +98,8 @@
             try {
                 const response = await fetch('registry.json');
                 appRegistry = await response.json();
+                
                 let firstFile = null, firstType = null;
-
                 appRegistry.forEach((section) => {
                     const sectionContainer = document.createElement('div');
                     const header = document.createElement('h3');
@@ -117,11 +117,10 @@
                         link.className = "nav-link block px-4 py-2.5 rounded-md text-zinc-400 text-sm transition-colors";
                         link.textContent = item.title;
                         link.setAttribute('data-file', item.file);
-                        link.setAttribute('data-type', item.type);
                         
                         link.onclick = (e) => {
                             e.preventDefault();
-                            navigateTo(item.file, item.type);
+                            window.location.hash = item.file;
                         };
                         list.appendChild(link);
                     });
@@ -129,37 +128,19 @@
                     nav.appendChild(sectionContainer);
                 });
 
-                const hash = window.location.hash ? window.location.hash.substring(1) : firstFile;
-                const activeItem = findItemInRegistry(hash);
-                navigateTo(hash, activeItem ? activeItem.type : firstType);
+                const currentHash = window.location.hash.substring(1);
+                handleNavigation(currentHash || firstFile);
 
             } catch (error) { console.error("Registry load fail", error); }
         }
 
         function findItemInRegistry(file) {
+            const decodedFile = decodeURIComponent(file);
             for (let section of appRegistry) {
-                let found = section.items.find(i => i.file === file);
+                let found = section.items.find(i => i.file === decodedFile);
                 if (found) return found;
             }
             return null;
-        }
-
-        function navigateTo(file, type) {
-            window.location.hash = file;
-            loadContent(file, type);
-            
-            document.querySelectorAll('.nav-link').forEach(a => {
-                const isActive = a.getAttribute('data-file') === file;
-                a.classList.toggle('bg-lunite', isActive);
-                a.classList.toggle('text-white', isActive);
-                a.classList.toggle('text-zinc-400', !isActive);
-            });
-
-            if (window.innerWidth < 1024) {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('translate-x-0');
-                overlay.classList.add('hidden');
-            }
         }
 
         async function loadContent(file, type) {
@@ -179,8 +160,28 @@
                     });
                 }
                 hljs.highlightAll();
-                contentDiv.scrollTo(0,0);
+                document.querySelector('main').scrollTo(0, 0);
             } catch (e) { contentDiv.innerHTML = "<h1>404 Not Found</h1>"; }
+        }
+
+        function handleNavigation(file) {
+            const item = findItemInRegistry(file);
+            if (!item) return;
+
+            loadContent(item.file, item.type);
+
+            document.querySelectorAll('.nav-link').forEach(a => {
+                const isActive = a.getAttribute('data-file') === item.file;
+                a.classList.toggle('bg-lunite', isActive);
+                a.classList.toggle('text-white', isActive);
+                a.classList.toggle('text-zinc-400', !isActive);
+            });
+
+            if (window.innerWidth < 1024) {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+            }
         }
 
         document.addEventListener('click', (e) => {
@@ -188,37 +189,25 @@
             if (!link) return;
 
             const href = link.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                const targetFile = href.substring(1);
-                const registryItem = findItemInRegistry(targetFile);
+            if (!href) return;
+
+            if (href.includes('#')) {
+                const parts = href.split('#');
+                const targetFile = parts[1];
                 
-                if (registryItem) {
+                if (findItemInRegistry(targetFile)) {
                     e.preventDefault();
-                    navigateTo(registryItem.file, registryItem.type);
+                    window.location.hash = targetFile;
                 }
             }
         });
 
-        loadApp();
-
-        // fallback for navigation
         window.addEventListener('hashchange', () => {
             const newHash = window.location.hash.substring(1);
-            if (!newHash) return;
-
-            const item = findItemInRegistry(newHash);
-            
-            if (item) {
-                loadContent(item.file, item.type);
-                
-                document.querySelectorAll('.nav-link').forEach(a => {
-                    const isActive = a.getAttribute('data-file') === item.file;
-                    a.classList.toggle('bg-lunite', isActive);
-                    a.classList.toggle('text-white', isActive);
-                    a.classList.toggle('text-zinc-400', !isActive);
-                });
-            }
+            if (newHash) handleNavigation(newHash);
         });
+
+        loadApp();
     </script>
 </body>
 </html>
