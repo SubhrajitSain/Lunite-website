@@ -200,6 +200,25 @@
         });
 
         loadApp();
+
+        // fallback for navigation
+        window.addEventListener('hashchange', () => {
+            const newHash = window.location.hash.substring(1);
+            if (!newHash) return;
+
+            const item = findItemInRegistry(newHash);
+            
+            if (item) {
+                loadContent(item.file, item.type);
+                
+                document.querySelectorAll('.nav-link').forEach(a => {
+                    const isActive = a.getAttribute('data-file') === item.file;
+                    a.classList.toggle('bg-lunite', isActive);
+                    a.classList.toggle('text-white', isActive);
+                    a.classList.toggle('text-zinc-400', !isActive);
+                });
+            }
+        });
     </script>
 </body>
 </html>
