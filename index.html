@@ -12,14 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- these are stable versions -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        lunite: '#5201cc',
-                    },
+                    colors: { lunite: '#5201cc' },
                     fontFamily: {
                         serif: ['Merriweather', 'serif'],
                         mono: ['"Fira Code"', 'monospace'],
@@ -31,57 +28,82 @@
     <style>
         body { font-family: 'Merriweather', serif; background-color: #000; color: #fff; }
         code, pre, input, textarea, button { font-family: 'Fira Code', monospace; }
-        .markdown-body h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #5201cc; font-family: 'Merriweather', serif; }
-        .markdown-body h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid #1f1f22; padding-bottom: 0.5rem; font-family: 'Merriweather', serif; }
-        .markdown-body h3 { font-size: 1.25rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; font-family: 'Merriweather', serif; }
-        .markdown-body p { margin-bottom: 1.25rem; line-height: 1.8; color: #d4d4d8; font-family: 'Merriweather', serif; }
+        .markdown-body h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #5201cc; }
+        .markdown-body h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid #1f1f22; padding-bottom: 0.5rem; }
+        .markdown-body p { margin-bottom: 1.25rem; line-height: 1.8; color: #d4d4d8; }
         .markdown-body pre { background-color: #09090b; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.5rem; border: 1px solid #27272a; }
         .markdown-body code { background-color: #18181b; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875em; border: 1px solid #27272a; }
         .markdown-body pre code { background-color: transparent; padding: 0; border: none; }
-        .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1.25rem; color: #d4d4d8; }
-        .markdown-body a { color: #5201cc; text-decoration: none; }
+        .markdown-body a { color: #5201cc; text-decoration: none; cursor: pointer; }
         .markdown-body a:hover { text-decoration: underline; }
-        .markdown-body blockquote { border-left: 4px solid #5201cc; padding-left: 1rem; color: #a1a1aa; font-style: italic; margin-bottom: 1.25rem; }
+        #sidebar { transition: transform 0.3s ease-in-out; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden antialiased selection:bg-lunite selection:text-white">
-    <aside class="w-72 bg-[#050505] border-r border-zinc-900 flex flex-col">
-        <div class="p-6 border-b border-zinc-900 flex items-center gap-4">
+
+    <div class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#050505] border-b border-zinc-900 flex items-center justify-between px-6 z-50">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/SubhrajitSain/Lunite/refs/heads/main/icon.png" class="w-7 h-7">
+            <span class="font-bold">Lunite</span>
+        </div>
+        <button id="menu-toggle" class="text-zinc-400 p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </div>
+
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-[#050505] border-r border-zinc-900 flex flex-col z-40 transform -translate-x-full lg:translate-x-0 lg:static">
+        <div class="p-6 border-b border-zinc-900 flex items-center gap-4 hidden lg:flex">
             <img src="https://raw.githubusercontent.com/SubhrajitSain/Lunite/refs/heads/main/icon.png" alt="Lunite" class="w-9 h-9">
             <span class="text-2xl font-bold tracking-tight">Lunite</span>
         </div>
-        <nav id="sidebar-nav" class="flex-1 overflow-y-auto p-4 space-y-6">
-        </nav>
+        <nav id="sidebar-nav" class="flex-1 overflow-y-auto p-4 space-y-6 mt-16 lg:mt-0">
+            </nav>
     </aside>
-    <main class="flex-1 overflow-y-auto p-12 bg-black">
+
+    <div id="overlay" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden"></div>
+
+    <main class="flex-1 overflow-y-auto p-6 lg:p-12 bg-black mt-16 lg:mt-0">
         <div id="content" class="max-w-3xl mx-auto markdown-body">
-        </div>
+            </div>
     </main>
+
     <script>
+        let appRegistry = [];
+
         marked.setOptions({
             highlight: function(code, lang) {
-                if (lang && hljs.getLanguage(lang)) {
-                    return hljs.highlight(code, { language: lang }).value;
-                }
+                if (lang && hljs.getLanguage(lang)) return hljs.highlight(code, { language: lang }).value;
                 return hljs.highlightAuto(code).value;
             }
         });
 
+        const menuBtn = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleSidebar() {
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            sidebar.classList.toggle('-translate-x-full', isOpen);
+            sidebar.classList.toggle('translate-x-0', !isOpen);
+            overlay.classList.toggle('hidden', isOpen);
+        }
+
+        menuBtn.onclick = toggleSidebar;
+        overlay.onclick = toggleSidebar;
+
         async function loadApp() {
             const nav = document.getElementById('sidebar-nav');
-            const content = document.getElementById('content');
-
             try {
                 const response = await fetch('registry.json');
-                const registry = await response.json();
-                let firstFile = null;
-                let firstType = null;
+                appRegistry = await response.json();
+                let firstFile = null, firstType = null;
 
-                registry.forEach((section) => {
+                appRegistry.forEach((section) => {
                     const sectionContainer = document.createElement('div');
-                    
                     const header = document.createElement('h3');
-                    header.className = "text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-4 font-serif";
+                    header.className = "text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-4";
                     header.textContent = section.category;
                     sectionContainer.appendChild(header);
 
@@ -89,84 +111,93 @@
                     list.className = "space-y-1";
 
                     section.items.forEach((item) => {
-                        if (!firstFile) {
-                            firstFile = item.file;
-                            firstType = item.type;
-                        }
-
+                        if (!firstFile) { firstFile = item.file; firstType = item.type; }
                         const link = document.createElement('a');
                         link.href = `#${item.file}`;
-                        link.className = "nav-link block px-4 py-2.5 rounded-md hover:bg-[#111] hover:text-white transition-colors cursor-pointer text-zinc-400 font-serif text-sm";
+                        link.className = "nav-link block px-4 py-2.5 rounded-md text-zinc-400 text-sm transition-colors";
                         link.textContent = item.title;
                         link.setAttribute('data-file', item.file);
                         link.setAttribute('data-type', item.type);
                         
                         link.onclick = (e) => {
                             e.preventDefault();
-                            window.location.hash = item.file;
-                            loadContent(item.file, item.type);
-                            updateActiveState(link);
+                            navigateTo(item.file, item.type);
                         };
                         list.appendChild(link);
                     });
-
                     sectionContainer.appendChild(list);
                     nav.appendChild(sectionContainer);
                 });
 
                 const hash = window.location.hash ? window.location.hash.substring(1) : firstFile;
-                const activeLink = document.querySelector(`a[data-file="${hash}"]`);
-                const type = activeLink ? activeLink.getAttribute('data-type') : firstType;
+                const activeItem = findItemInRegistry(hash);
+                navigateTo(hash, activeItem ? activeItem.type : firstType);
 
-                loadContent(hash, type);
-                
-                setTimeout(() => {
-                    if(activeLink) updateActiveState(activeLink);
-                }, 50);
+            } catch (error) { console.error("Registry load fail", error); }
+        }
 
-            } catch (error) {
-                content.innerHTML = '<p class="text-red-500 font-serif">Failed to load file registry. Check your console.</p>';
-                console.error(error)
+        function findItemInRegistry(file) {
+            for (let section of appRegistry) {
+                let found = section.items.find(i => i.file === file);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        function navigateTo(file, type) {
+            window.location.hash = file;
+            loadContent(file, type);
+            
+            document.querySelectorAll('.nav-link').forEach(a => {
+                const isActive = a.getAttribute('data-file') === file;
+                a.classList.toggle('bg-lunite', isActive);
+                a.classList.toggle('text-white', isActive);
+                a.classList.toggle('text-zinc-400', !isActive);
+            });
+
+            if (window.innerWidth < 1024) {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
             }
         }
 
         async function loadContent(file, type) {
             const contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = '<p class="text-zinc-600 font-serif animate-pulse">Hold momentarily...</p>';
-            
+            contentDiv.innerHTML = '<p class="text-zinc-600 animate-pulse">Loading...</p>';
             try {
                 const response = await fetch(file);
-                if (!response.ok) throw new Error('Not found');
                 const text = await response.text();
+                contentDiv.innerHTML = type === 'md' ? marked.parse(text) : text;
 
-                if (type === 'md') {
-                    contentDiv.innerHTML = marked.parse(text); // for lessons/diy
-                } else if (type === 'html') {
-                    // for exercises
-                    contentDiv.innerHTML = text;
-                    const scripts = contentDiv.querySelectorAll('script');
-                    scripts.forEach(oldScript => {
+                if (type === 'html') {
+                    contentDiv.querySelectorAll('script').forEach(oldScript => {
                         const newScript = document.createElement('script');
                         Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
                         newScript.appendChild(document.createTextNode(oldScript.innerHTML));
                         oldScript.parentNode.replaceChild(newScript, oldScript);
                     });
                 }
-            } catch (error) {
-                contentDiv.innerHTML = `<h1 class="text-red-500 font-serif">404</h1><p class="font-serif">Content not found. Check your console.</p>`;
-                console.error(error)
-            }
+                hljs.highlightAll();
+                contentDiv.scrollTo(0,0);
+            } catch (e) { contentDiv.innerHTML = "<h1>404 Not Found</h1>"; }
         }
 
-        function updateActiveState(activeLink) {
-            if(!activeLink) return;
-            document.querySelectorAll('.nav-link').forEach(a => {
-                a.classList.remove('bg-lunite', 'text-white', 'hover:bg-[#111]');
-                a.classList.add('text-zinc-400');
-            });
-            activeLink.classList.remove('text-zinc-400');
-            activeLink.classList.add('bg-lunite', 'text-white');
-        }
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const targetFile = href.substring(1);
+                const registryItem = findItemInRegistry(targetFile);
+                
+                if (registryItem) {
+                    e.preventDefault();
+                    navigateTo(registryItem.file, registryItem.type);
+                }
+            }
+        });
 
         loadApp();
     </script>

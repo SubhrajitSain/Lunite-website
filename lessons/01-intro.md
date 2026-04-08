@@ -17,4 +17,4 @@ This language initially started as a silly little project of mine (Hi, I am ANW!
 
 We also reached 20 stars on GitHub, which for me is a big achievement (thank you pookies! :3). Now that the introductory part is over, lets get into the real deal.
 
-<small>Page: 01 | [Next](https://subhrajitsain.github.io/Lunite-website/#lessons/02-getting-started.md)</small>
+<small>Lesson 1 | [Next Lesson](#content/02-getting-started.md)</small>
