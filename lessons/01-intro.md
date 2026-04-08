@@ -17,4 +17,5 @@ This language initially started as a silly little project of mine (Hi, I am ANW!
 
 We also reached 20 stars on GitHub, which for me is a big achievement (thank you pookies! :3). Now that the introductory part is over, lets get into the real deal.
 
+<br>
 <small>Lesson 1 | [Next Lesson](#lessons/02-getting-started.md)</small>

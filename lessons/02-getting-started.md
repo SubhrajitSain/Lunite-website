@@ -12,8 +12,6 @@ out("Hello, World!")
 
 Yes. Its that simple (unlike Java for instance). 
 
----
-
 ## Semicolons
 
 Now, for the second most ginormous question, does it need semicolons? I think you already have the answer. No. But you can add semicolons at the end of statements and make one-liner programs.  
@@ -53,7 +51,7 @@ i am not kidding
  *~
 ```
 
-### Some Global STDLIB Functions
+## Some Global STDLIB Functions
 
 These functions can be accessed globally throughout your programs. Totally not copied over from the docs.  
 - `out(msg)`: Prints to console.
@@ -65,4 +63,5 @@ These functions can be accessed globally throughout your programs. Totally not c
 - `raise(msg)`: Raises a runtime exception with the given message.
 - **Casts:** `str(x)`, `int(x)`, `float(x)`, `bool(x)`, `bit(x)`, `byte(x)`, `char(x)`, `bytes(list)`.
 
+<br>
 <small>Lesson 2 | [Previous](#lessons/01-intro.md) - [Next](#lessons/03-values-and-datatypes.md)</small>
