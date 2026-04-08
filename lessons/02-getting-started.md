@@ -2,7 +2,7 @@
 
 *Just a brief note: Only the concepts of the langauge are taught here, not how to install/run it. For that, check the documentation.*
 
-### Hello, World!
+## Hello, World!
 
 The absolute, ginormous, ultimate question for a language is how to make a Hello World program in it. And, I would kid you not, it is...  
 
@@ -14,7 +14,7 @@ Yes. Its that simple (unlike Java for instance).
 
 ---
 
-### Semicolons
+## Semicolons
 
 Now, for the second most ginormous question, does it need semicolons? I think you already have the answer. No. But you can add semicolons at the end of statements and make one-liner programs.  
 
@@ -24,7 +24,7 @@ out("Hi!"); out("How are you?")
 
 The above snippet is completely valid.  
 
-### Comments
+## Comments
 
 Ah, the most important thing when it comes to annotations. **Comments**. So, how exactly **comments**? Well...  
 
