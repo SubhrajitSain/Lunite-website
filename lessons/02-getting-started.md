@@ -61,7 +61,6 @@ These functions can be accessed globally throughout your programs. Totally not c
 - `list(num, type_hint)`: Initializes a list with `n` elements and of type `type_hint` ("int", "float", etc.).
 - `range(start, end)`: Returns a list of integers from `start` to `end` (inclusive).
 - `raise(msg)`: Raises a runtime exception with the given message.
-- **Casts:** `str(x)`, `int(x)`, `float(x)`, `bool(x)`, `bit(x)`, `byte(x)`, `char(x)`, `bytes(list)`.
+- **Casts:** `str(x)`, `int(x)`, `float(x)`, `bool(x)`, `bit(x)`, `byte(x)`, `char(x)`, `bytes(list)`.  
 
-<br>
 <small>Lesson 2 | [Previous](#lessons/01-intro.md) - [Next](#lessons/03-values-and-datatypes.md)</small>
