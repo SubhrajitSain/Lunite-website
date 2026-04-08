@@ -1,7 +1,7 @@
 # 1. Introduction
 
 Welcome to Learn Lunite. You have reached the official tutorial of The Lunite Programming Language.  
-Please note that this is not the documentation site. For docs, visit [here](https://verbena-dream-15b.notion.site/Lunite-Docs-2e947befe6ac80b8bba0c5cca9c6aeb1#2e947befe6ac80548855ebbb604b2586). You can find installation guides and other information there.  
+Please note that this is not the documentation site. For docs, visit [here](#docs/01-index.md). You can find installation guides and other information there.  
 
 Language repo: https://github.com/SubhrajitSain/Lunite  
 Website repo: https://github.com/SubhrajitSain/Lunite-website  

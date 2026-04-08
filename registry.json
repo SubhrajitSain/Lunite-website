@@ -1,22 +1,50 @@
 [
   {
+    "category": "Documentation",
+    "items": [
+      { "title": "Index",                       "file": "docs/01-index.md",                   "type": "md" },
+      { "title": "Build Lunite",                "file": "docs/02-build-lunite.md",            "type": "md" },
+      { "title": "VS Code Extension",           "file": "docs/03-vscode-ext.md",              "type": "md" },
+      { "title": "Transpile into C++",          "file": "docs/04-transpile.md",               "type": "md" },
+      { "title": "Lunite Manual",               "file": "docs/05-manual.md",                  "type": "md" },
+      { "title": "Getting Started",             "file": "docs/06-getting-started.md",         "type": "md" },
+      { "title": "Tokens and Keywords",         "file": "docs/07-tokens-keywords.md",         "type": "md" },
+      { "title": "Variables and Types",         "file": "docs/08-variables-types.md",         "type": "md" },
+      { "title": "Operators",                   "file": "docs/09-operators.md",               "type": "md" },
+      { "title": "Control Flow",                "file": "docs/10-control-flow.md",            "type": "md" },
+      { "title": "Functions",                   "file": "docs/11-functions.md",               "type": "md" },
+      { "title": "Object Oriented Programming", "file": "docs/12-oop.md",                     "type": "md" },
+      { "title": "Access Modifiers",            "file": "docs/13-access-modifiers.md",        "type": "md" },
+      { "title": "Standard Library",            "file": "docs/14-stdlib.md",                  "type": "md" },
+      { "title": "Modules",                     "file": "docs/15-modules.md",                 "type": "md" },
+      { "title": "Macros",                      "file": "docs/16-macros.md",                  "type": "md" },
+      { "title": "Asynchronous Functions",      "file": "docs/17-async.md",                   "type": "md" },
+      { "title": "Dict or Set?",                "file": "docs/18-dict-set.md",                "type": "md" },
+      { "title": "Enumerations",                "file": "docs/19-enum.md",                    "type": "md" },
+      { "title": "String Interpolation",        "file": "docs/20-string-interpolation.md",    "type": "md" },
+      { "title": "Error Diagnostics",           "file": "docs/21-errors-diagnostics.md",      "type": "md" },
+      { "title": "Escape Characters",           "file": "docs/22-escape-characters.md",       "type": "md" },
+      { "title": "Post Script",                 "file": "docs/23-post-scripts.md",            "type": "md" }
+    ]
+  },
+  {
     "category": "Lessons",
     "items": [
-      { "title": "1. Introduction", "file": "lessons/01-intro.md", "type": "md" },
-      { "title": "2. Getting Started", "file": "lessons/02-getting-started.md", "type": "md" },
-      { "title": "3. Values and Datatypes", "file": "lessons/03-values-and-datatypes.md", "type": "md" }
+      { "title": "1. Introduction",             "file": "lessons/01-intro.md",                "type": "md" },
+      { "title": "2. Getting Started",          "file": "lessons/02-getting-started.md",      "type": "md" },
+      { "title": "3. Values and Datatypes",     "file": "lessons/03-values-and-datatypes.md", "type": "md" }
     ]
   },
   {
     "category": "Exercises",
     "items": [
-      { "title": "1. Hello, World!", "file": "exercises/01-hello-world.html", "type": "html" }
+      { "title": "1. Hello, World!",            "file": "exercises/01-hello-world.html",      "type": "html" }
     ]
   },
   {
     "category": "DIY Questions",
     "items": [
-      { "title": "1. Calculator", "file": "diy/01-calc.md", "type": "md" }
+      { "title": "1. Calculator",               "file": "diy/01-calc.md",                     "type": "md" }
     ]
   }
 ]
