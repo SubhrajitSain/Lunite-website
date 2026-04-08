@@ -8,17 +8,27 @@
 </div>
 
 <script>
-    document.getElementById('debug-btn').addEventListener('click', () => {
-        const val = document.getElementById('ans-input').value.trim();
-        const feedback = document.getElementById('ans-feedback');
-        feedback.classList.remove('hidden', 'bg-red-950', 'text-red-400', 'bg-green-950', 'text-green-400');
+    (function() {
+        const init = () => {
+            document.getElementById('debug-btn').addEventListener('click', () => {
+                const val = document.getElementById('ans-input').value.trim();
+                const feedback = document.getElementById('ans-feedback');
+                feedback.classList.remove('hidden', 'bg-red-950', 'text-red-400', 'bg-green-950', 'text-green-400');
 
-        if (val.includes('out("Hello, World!")')) {
-            feedback.classList.add('bg-green-950', 'text-green-400');
-            feedback.innerHTML = "Correct! That is how you make a Hello World program in Lunite.";
+                if (val.includes('out("Hello, World!")')) {
+                    feedback.classList.add('bg-green-950', 'text-green-400');
+                    feedback.innerHTML = "Correct! That is how you make a Hello World program in Lunite.";
+                } else {
+                    feedback.classList.add('bg-red-950', 'text-red-400');
+                    feedback.innerHTML = "Oops! You did something wrong. Check your code, go through the lessons and try again.";
+                }
+            });
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
         } else {
-            feedback.classList.add('bg-red-950', 'text-red-400');
-            feedback.innerHTML = "Oops! You did something wrong. Check your code, go through the lessons and try again.";
+            init();
         }
-    });
+    })();
 </script>
