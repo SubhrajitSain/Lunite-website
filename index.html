@@ -143,15 +143,15 @@
         });
 
         const renderer = new marked.Renderer();
-        renderer.code = function(code, lang) {
+        renderer.code = function({ text, lang }) {
             const language = (lang === 'luna' || lang === 'lunite') ? 'lunite' : lang;
             if (language && hljs.getLanguage(language)) {
                 try {
-                    const highlighted = hljs.highlight(code, { language: language }).value;
+                    const highlighted = hljs.highlight(text, { language: language }).value;
                     return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`;
                 } catch (err) { console.error(err); }
             }
-            return `<pre><code class="hljs">${code}</code></pre>`;
+            return `<pre><code class="hljs">${text}</code></pre>`;
         };
         marked.setOptions({ renderer: renderer });
 
