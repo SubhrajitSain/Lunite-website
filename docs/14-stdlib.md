@@ -13,6 +13,8 @@ Core functions available everywhere without a prefix.
 - `raise(msg)`: Raises a runtime exception with the given message.
 - **Casts:** `str(x)`, `int(x)`, `float(x)`, `bool(x)`, `bit(x)`, `byte(x)`, `char(x)`, `bytes(list)`.
 
+---
+
 ### Math
 
 Accessed via the `Math` object.
@@ -35,6 +37,8 @@ Accessed via the `Math` object.
 - `Math.hypot(x, y)`: Returns the 2D hypotenuse with coordinates `x` and `y`.
 - **Trigonometry:** `Math.sin(x)`, `Math.cos(x)`, `Math.tan(x)`, `Math.asin(x)`, `Math.acos(x)`, `Math.atan(x)`.
 
+---
+
 ### Random
 
 Accessed via the `Random` object.
@@ -47,6 +51,8 @@ Accessed via the `Random` object.
 - `Random.choice(l)`: Returns a random element from the list, tuple or string `l`.
 - `Random.shuffle(l)`: Randomly shuffle and return elements in list `l`.
 - `Random.sample(l, k)`: Returns a `k` length list of unique elements chosen from the list, tuple or set.
+
+---
 
 ### File System & I/O
 
@@ -71,6 +77,8 @@ Accessed via the `File` object.
 - `File.ext(path)`: Returns the file extension of `path`.
 - `File.size(path)`: Returns file size of `path` in bytes.
 
+---
+
 ### Network & JSON
 
 Accessed via `Net` and `Json` objects.
@@ -80,6 +88,8 @@ Accessed via `Net` and `Json` objects.
 - `Net.download(url, path)`: Downloads a file at `url` and saves it to the disk at `path`.
 - `Json.encode(obj)`: Converts an object (dict/list) to a JSON string.
 - `Json.decode(str)`: Parses a JSON string into an object.
+
+---
 
 ### System
 
@@ -92,6 +102,8 @@ Accessed via the `Sys` object.
 - `Sys.set_env(key, val)`: Sets an environment variable `key` to `val`.
 - `Sys.env(key)`: Gets an environment variable `key`.
 - `Sys.exit(code)`: Terminates the program.
+
+---
 
 ### String Utils
 
@@ -113,6 +125,8 @@ Accessed via the `String` object.
 - `String.pad_start(s, len, char)`: Returns the padded string `s` after padding the start of `s` by repeating the character `char` at the start until the length of `s` is `len`.
 - `String.pad_end(s, len, char)`: Returns the padded string `s` after padding the end of `s` by repeating the character `char` at the end until the length of `s` is `len`.
 
+---
+
 ### Time
 
 Accessed via the `Time` object.
@@ -122,6 +136,8 @@ Accessed via the `Time` object.
 - `Time.struct(timestamp)`: Returns a dictionary containing `{"year": y, "month": m, "day": d, "hour": h, "minute": min, "second": s, "weekday": w}`.
 - `Time.format(fmt)`: Returns the time as per `fmt`, like: `"%Y-%m-%d"`.
 
+---
+
 ### Regular Expressions
 
 Accessed via the `Regex` object.
@@ -130,6 +146,8 @@ Accessed via the `Regex` object.
 - `Regex.search(pattern, str)`: Searches string for pattern.
 - `Regex.find_all(pattern, str)`: Returns list of all matches.
 - `Regex.replace(pattern, replacement, str)`: Returns modified string.
+
+---
 
 ### List Operations
 
@@ -146,6 +164,8 @@ Accessed via the `List` object.
 - `List.count(list, item)`: Returns the number of times `item` is in `list`.
 - `List.extend(l1, l2)`: Appends elements from list `l2` into list `l1`.
 
+---
+
 ### Dictionary Operations
 
 Accessed via the `Dict` object.
@@ -156,6 +176,8 @@ Accessed via the `Dict` object.
 - `Dict.has(d, key)`: Returns `true` if `key` is in `d`, else `false`.
 - `Dict.remove(d, key)`: Removes `key` from the dictionary `d`.
 - `Dict.merge(d1, d2)`: Returns a dictionary after merging `d1` and `d2`.
+
+---
 
 ### Set Operations
 
@@ -169,6 +191,8 @@ Accessed via the `Set` object.
 - `Set.diff(s1, s2)`: Returns the difference between the sets `s1` and `s2`.
 - `Set.list(s)`: Convert and return set `s` as a list.
 
+---
+
 ### Base64
 
 Accessed via the `Base64` object.
@@ -176,12 +200,16 @@ Accessed via the `Base64` object.
 - `Base64.encode(s)`: Returns Base64 encoded value of `s`.
 - `Base64.decode(s)`: Returns Base64 decoded value of `s`.
 
+---
+
 ### Hashing
 
 Accessed via the `Hash` object.
 
 - `Hash.sha256(s)`: Returns SHA-256 hash of string `s`.
 - `Hash.md5(s)`: Returns MD5 hash of string `s`.
+
+---
 
 ### Console Utilities
 
@@ -191,6 +219,8 @@ Accessed via the `Console` object.
 - `Console.read_pass(p)`: Reads and returns a password from the console, with optional string prompt `p`.
 - `Console.size()`: Returns the size of the terminal in the format `{"columns": <cols>, "lines": <lines>}`.
 - `Console.title(t)`: Set the title of the console window to `t`.
+
+---
 
 ### Lunite Interpreter Metadata
 
