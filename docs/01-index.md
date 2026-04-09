@@ -16,10 +16,10 @@ If you find any errors in this documentation, please let us know. Docs have been
 
 Click the link for each item to jump to that section.
 
-- ** ▪ [How to Build Lunite Executable](#docs/02-build-lunite.md)**
-- ** ▪ [VS Code Extension Installation](#docs/03-vscode-ext.md)**
-- ** ▪ [Transpile Lunite Interpreter](#docs/04-transpile.md)**
-- ** ▪ [Lunite User Manual](#docs/05-manual.md)**
+- **[How to Build Lunite Executable](#docs/02-build-lunite.md)**
+- **[VS Code Extension Installation](#docs/03-vscode-ext.md)**
+- **[Transpile Lunite Interpreter](#docs/04-transpile.md)**
+- **[Lunite User Manual](#docs/05-manual.md)**
     -  ▸ [Getting Started](#docs/06-getting-started.md): CLI Usage, Make `lunite` Command, File Extension, Line Terminator/Delimiter, Comments
     -  ▸ [Tokens & Keywords](#docs/07-tokens-keywords.md): Keywords, Literals
     -  ▸ [Variables & Types](#docs/08-variables-types.md): Declaration, Data Types, Advanced List Features
@@ -37,7 +37,7 @@ Click the link for each item to jump to that section.
     -  ▸ [String Interpolation (f-strings)](#docs/20-string-interpolation.md)
     -  ▸ [Error Diagnostics](#docs/21-error-diagnostics.md)
     -  ▸ [Escape Characters](#docs/22-escape-chars.md)
-- ** ▪ [Post Script](#docs/23-post-script.md)**
+- **[Post Script](#docs/23-post-script.md)**
 
 ---
 
