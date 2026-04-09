@@ -22,7 +22,7 @@ python -m cython --embed --cplus -3 -o lunite.cpp lunite.py
 
 ### Compile Binary
 
-**Linux/MacOS:** Run: ****`g++ -O3 -o lunite lunite.cpp $(python3-config --cflags) $(python3-config --ldflags --embed)` (untested)
+**Linux/MacOS:** Run: `g++ -O3 -o lunite lunite.cpp $(python3-config --cflags) $(python3-config --ldflags --embed)` (untested)
 
 **Windows:** First check the existence of the folder `C:\Program Files\Python313\Include` and the DLL file `C:\Program Files\Python313\libs\python313.lib` (highly depends on your Python version). If you have a different version of Python, please use the correct paths.
 
