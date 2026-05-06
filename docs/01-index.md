@@ -6,7 +6,7 @@ Copyright Lunite by ANW (Subhrajit Sain), 2025-2026
 
 Lunite is a hybrid OOP + POP programming language made in Python. Visit [https://github.com/SubhrajitSain/Lunite](https://github.com/SubhrajitSain/Lunite) for more information, source code and downloads.
 
-This is the official documentation for Lunite version **1.9.8**. Docs updated: April 7th, 2026.
+This is the official documentation for Lunite version **1.9.8**. Docs updated: May 6th, 2026.
 
 If you find any errors in this documentation, please let us know. Docs have been moved from Notion to here.
 
