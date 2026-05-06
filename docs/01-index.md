@@ -1,6 +1,6 @@
 # Lunite Docs
 
-# Preface
+# Metadata
 
 Copyright Lunite by ANW (Subhrajit Sain), 2025-2026
 
@@ -9,6 +9,16 @@ Lunite is a hybrid OOP + POP programming language made in Python. Visit [https:/
 This is the official documentation for Lunite version **1.9.8**. Docs updated: May 6th, 2026.
 
 If you find any errors in this documentation, please let us know. Docs have been moved from Notion to here.
+
+# Preface
+
+Lunite is a modern-day hybrid programming language that is a blend of OOP and POP principles, which help you to write code in many use cases like scripting, web backend development, data models or similar. Lunite's syntax is very simple and has a wide variety of pre-installed functions in its standard library, mostly from Python.  
+
+To get started with Lunite, one does not require to be a professional programming expert, even I (a 15 year old when I started this project) have made multiple things in Lunite, including a [PythonAnywhere](https://pythonanywhere.com) website at [dih.pythonanywhere.com](https://dih.pythonanywhere.com) that runs Lunite + Flask (site might not be up as it is running on the free tier) using simple `import_py` imports (you will learn about these later as you read the docs).  
+
+So, I hope this helps to get you started with Lunite, and if you have any issues, questions or suggestions, please feel free to contact me through my website at [anw.is-a.dev]("https://anw.is-a.dev"). You can share your Lunite creations too, I would really appreciate it. Let's build something cool!  
+
+ANW, Developer of Lunite.  
 
 ---
 
