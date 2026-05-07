@@ -2,7 +2,7 @@
 
 ### Operators List
 
-**Arithmetic:** `+`, `-`, `\*`, `/`, `%`, postfix/prefix: `++`, `--`
+**Arithmetic:** `+`, `-`, `*`, `/`, `%`, postfix/prefix: `++`, `--`
 
 **Compound:** `+=`, `-=`, `*=`, `/=`, `%=`
 
