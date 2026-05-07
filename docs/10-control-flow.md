@@ -1,5 +1,7 @@
 ## Control Flow
 
+Lunite possesses a wide range of control flow statements.  
+
 ### If / Else If / Else
 
 ```lunite
