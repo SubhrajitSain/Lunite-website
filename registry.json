@@ -24,7 +24,7 @@
       { "title": "String Interpolation",        "file": "docs/20-string-interpolation.md",    "type": "md" },
       { "title": "Error Diagnostics",           "file": "docs/21-error-diagnostics.md",       "type": "md" },
       { "title": "Escape Characters",           "file": "docs/22-escape-chars.md",            "type": "md" },
-      { "title": "Post Script",                 "file": "docs/23-post-scripts.md",            "type": "md" }
+      { "title": "Post Script",                 "file": "docs/23-post-script.md",             "type": "md" }
     ]
   },
   {
