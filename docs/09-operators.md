@@ -33,9 +33,9 @@ The order is: **P**rimary → **U**nary → **M**ultiplicative → **A**dditive 
 | **M** | 3 | Multiplicative | `*`, `/`, `%` |
 | **A** | 4 | Additive | `+`, `-` |
 | **S** | 5 | Shift | `<<`, `>>` |
-| **B** | 6 | Bitwise | `&`, `^`, `|` |
+| **B** | 6 | Bitwise | `&`, `^`, `\|`, `~` |
 | **R** | 7 | Relational | `>`, `<`, `>=`, `<=`, `==`, `!=`, `is`, `in` |
-| **L** | 8 | Logical | `&&`/`and`, `||`/`or`, `!`/`not` |
+| **L** | 8 | Logical | `&&`/`and`, `\|\|`/`or`, `!`/`not` |
 | **T** | 9 | Ternary | `(<cond>) ? <true_expr> : <false_expr>` |
 | **A** | 10 **(Low)** | Assignment | `=`, `+=`, `-=`, `*=`, `/=`, `%=` |
 
