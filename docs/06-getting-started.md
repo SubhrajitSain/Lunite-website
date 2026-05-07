@@ -44,7 +44,7 @@ python lunite.py version
 
 ### Make `lunite` Command
 
-If you do not want to use the long `python lunite.py` prefix mentioned above to use Lunite, you can build the `lunite` or `lunite.exe` executable by following the steps mentioned above in **How to Build Lunite Executable**. If you do not prefer making an executable, you can just make the [lunite.py](http://lunite.py) script into an executable command by following these steps:
+If you do not want to use the long `python lunite.py` prefix mentioned above to use Lunite, you can build the `lunite` or `lunite.exe` executable by following the steps mentioned above in **How to Build Lunite Executable**. If you do not prefer making an executable, you can just make the `lunite.py` script into an executable command by following these steps:
 
 **On Linux:**
 
