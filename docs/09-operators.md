@@ -18,7 +18,7 @@
 
 **Ternary:** `condition ? true_val : false_val` (e.g., `(a > b) ? a : b`)
 
-**Type Check:** `variable is type` (e.g., `x is int`) instead of using `if str(type(variable)) == "Type"` (e.g., `if str(type(x)) == "Int"`)
+**Type Check:** `if variable is type` (e.g., `if x is int`) instead of using `if str(type(variable)) == "Type"` (e.g., `if str(type(x)) == "Int"`)
 
 ### The Hierarchy
 
