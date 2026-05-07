@@ -10,7 +10,7 @@
 
 **Logical:**
 
-- AND: `&` or `and`
+- AND: `&&` or `and`
 - OR: `||` or `or`
 - NOT: `!` or `not`
 
