@@ -31,7 +31,7 @@ for item in list {
     out(item)
 }
 for i in range(1, 10) {
-		out(i)
+	out(i)
 }
 ```
 
