@@ -30,7 +30,8 @@
   {
     "category": "Exercises",
     "items": [
-      { "title": "1. Hello, World!",            "file": "exercises/01-hello-world.html",      "type": "html" }
+      { "title": "1. Hello, World!",            "file": "exercises/01-hello-world.html",      "type": "html" },
+      { "title": "2. Going Ternary",            "file": "exercises/02-ternary.html",          "type": "html" }
     ]
   },
   {
